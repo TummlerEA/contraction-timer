@@ -13,7 +13,11 @@ external account: all data is stored locally in your browser
 - **Start / Stop button** — tap once to start timing a contraction, tap again
   to stop. The live elapsed time is shown while a contraction is in progress.
 - **History table** — every recorded contraction shows its start time,
-  interval since the previous contraction started, and duration.
+  interval since the previous contraction started, duration, and an
+  optional intensity.
+- **Manual intensity** — tag any contraction Mild / Moderate / Strong from a
+  dropdown in the history table, or leave it as "Add" to skip it. Fully
+  optional and editable any time.
 - **1h / 3h / 6h filters** — switch the history view between the last one,
   three, or six hours.
 - **Past-hour stats** — average duration, number of contractions, and average

@@ -234,6 +234,45 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
+.intensity-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--card-bg-2);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-align-last: center;
+  min-width: 76px;
+}
+
+.intensity-select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.intensity-select[data-intensity="mild"] {
+  background: rgba(95, 184, 171, 0.18);
+  color: var(--accent);
+  border-color: var(--accent-dark);
+}
+
+.intensity-select[data-intensity="moderate"] {
+  background: rgba(230, 176, 63, 0.18);
+  color: #e6b03f;
+  border-color: #a67c2e;
+}
+
+.intensity-select[data-intensity="strong"] {
+  background: rgba(229, 90, 90, 0.18);
+  color: var(--danger);
+  border-color: #a33f3f;
+}
+
 .delete-btn {
   background: none;
   border: none;

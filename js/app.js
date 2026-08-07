@@ -4,7 +4,14 @@
   var STORAGE_KEY = "contractionTimer.contractions";
   var ACTIVE_KEY = "contractionTimer.activeStart";
 
-  /** @type {{id:string, start:number, end:number, duration:number}[]} */
+  // Intensity is optional — null/"" means "not set" (skipped).
+  var INTENSITY_LEVELS = [
+    { value: "mild", label: "Mild" },
+    { value: "moderate", label: "Moderate" },
+    { value: "strong", label: "Strong" }
+  ];
+
+  /** @type {{id:string, start:number, end:number, duration:number, intensity:(string|null)}[]} */
   var contractions = [];
   var activeStart = null; // epoch ms while a contraction is in progress
   var tickHandle = null;
@@ -109,7 +116,8 @@
       id: "c" + activeStart,
       start: activeStart,
       end: end,
-      duration: duration
+      duration: duration,
+      intensity: null
     });
     contractions.sort(function (a, b) { return a.start - b.start; });
     save();
@@ -160,6 +168,13 @@
     contractions = contractions.filter(function (c) { return c.id !== id; });
     save();
     renderAll();
+  }
+
+  function setIntensity(id, value) {
+    var c = contractions.find(function (c) { return c.id === id; });
+    if (!c) return;
+    c.intensity = value || null; // "" (the "Skip" option) clears it
+    save();
   }
 
   // ---------- rendering ----------
@@ -240,6 +255,10 @@
       tdDuration.className = "duration-cell";
       tr.appendChild(tdDuration);
 
+      var tdIntensity = document.createElement("td");
+      tdIntensity.appendChild(buildIntensitySelect(c));
+      tr.appendChild(tdIntensity);
+
       var tdDelete = document.createElement("td");
       var delBtn = document.createElement("button");
       delBtn.className = "delete-btn";
@@ -251,6 +270,36 @@
 
       els.historyBody.appendChild(tr);
     });
+  }
+
+  // ---------- intensity ----------
+
+  function buildIntensitySelect(c) {
+    var select = document.createElement("select");
+    select.className = "intensity-select";
+    select.dataset.intensity = c.intensity || "";
+    select.setAttribute("aria-label", "Intensity for contraction at " + formatTime(c.start));
+
+    var skipOption = document.createElement("option");
+    skipOption.value = "";
+    skipOption.textContent = "Add";
+    select.appendChild(skipOption);
+
+    INTENSITY_LEVELS.forEach(function (level) {
+      var opt = document.createElement("option");
+      opt.value = level.value;
+      opt.textContent = level.label;
+      select.appendChild(opt);
+    });
+
+    select.value = c.intensity || "";
+
+    select.addEventListener("change", function () {
+      setIntensity(c.id, select.value);
+      select.dataset.intensity = select.value;
+    });
+
+    return select;
   }
 
   // ---------- helpers ----------
