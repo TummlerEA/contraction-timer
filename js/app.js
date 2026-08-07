@@ -4,12 +4,9 @@
   var STORAGE_KEY = "contractionTimer.contractions";
   var ACTIVE_KEY = "contractionTimer.activeStart";
 
-  // Intensity is optional — null/"" means "not set" (skipped).
-  var INTENSITY_LEVELS = [
-    { value: "mild", label: "Mild" },
-    { value: "moderate", label: "Moderate" },
-    { value: "strong", label: "Strong" }
-  ];
+  var formatDuration = TimerUtils.formatDuration;
+  var formatTime = TimerUtils.formatTime;
+  var average = TimerUtils.average;
 
   /** @type {{id:string, start:number, end:number, duration:number, intensity:(string|null)}[]} */
   var contractions = [];
@@ -68,6 +65,11 @@
     } catch (e) {
       contractions = [];
     }
+    // Always keep contractions sorted by start time — this is what makes
+    // "interval since previous contraction" and history order correct,
+    // including after a record's start/end time was hand-edited.
+    contractions.sort(function (a, b) { return a.start - b.start; });
+
     try {
       var activeRaw = localStorage.getItem(ACTIVE_KEY);
       activeStart = activeRaw ? parseInt(activeRaw, 10) : null;
@@ -153,7 +155,7 @@
     els.timerDisplay.textContent = formatDuration(elapsed);
   }
 
-  // ---------- deletion / clear ----------
+  // ---------- clear all ----------
 
   function onClear() {
     if (!contractions.length) return;
@@ -162,19 +164,6 @@
     contractions = [];
     save();
     renderAll();
-  }
-
-  function deleteContraction(id) {
-    contractions = contractions.filter(function (c) { return c.id !== id; });
-    save();
-    renderAll();
-  }
-
-  function setIntensity(id, value) {
-    var c = contractions.find(function (c) { return c.id === id; });
-    if (!c) return;
-    c.intensity = value || null; // "" (the "Skip" option) clears it
-    save();
   }
 
   // ---------- rendering ----------
@@ -241,6 +230,21 @@
       var interval = idxInAll > 0 ? Math.round((c.start - contractions[idxInAll - 1].start) / 1000) : null;
 
       var tr = document.createElement("tr");
+      tr.className = "history-row";
+      tr.tabIndex = 0;
+      tr.setAttribute("role", "button");
+      tr.setAttribute("aria-label", "Edit contraction at " + formatTime(c.start));
+
+      var goToEdit = function () {
+        window.location.href = "edit.html?id=" + encodeURIComponent(c.id);
+      };
+      tr.addEventListener("click", goToEdit);
+      tr.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          goToEdit();
+        }
+      });
 
       var tdTime = document.createElement("td");
       tdTime.textContent = formatTime(c.start);
@@ -256,78 +260,24 @@
       tr.appendChild(tdDuration);
 
       var tdIntensity = document.createElement("td");
-      tdIntensity.appendChild(buildIntensitySelect(c));
-      tr.appendChild(tdIntensity);
+      tdIntensity.className = "intensity-cell";
 
-      var tdDelete = document.createElement("td");
-      var delBtn = document.createElement("button");
-      delBtn.className = "delete-btn";
-      delBtn.title = "Delete this entry";
-      delBtn.textContent = "✕";
-      delBtn.addEventListener("click", function () { deleteContraction(c.id); });
-      tdDelete.appendChild(delBtn);
-      tr.appendChild(tdDelete);
+      var badge = document.createElement("span");
+      var label = Intensity.labelFor(c.intensity);
+      badge.className = "intensity-badge" + (label ? " intensity-" + c.intensity : " intensity-none");
+      badge.textContent = label || "Add";
+      tdIntensity.appendChild(badge);
+
+      var chevron = document.createElement("span");
+      chevron.className = "row-chevron";
+      chevron.textContent = "›";
+      chevron.setAttribute("aria-hidden", "true");
+      tdIntensity.appendChild(chevron);
+
+      tr.appendChild(tdIntensity);
 
       els.historyBody.appendChild(tr);
     });
-  }
-
-  // ---------- intensity ----------
-
-  function buildIntensitySelect(c) {
-    var select = document.createElement("select");
-    select.className = "intensity-select";
-    select.dataset.intensity = c.intensity || "";
-    select.setAttribute("aria-label", "Intensity for contraction at " + formatTime(c.start));
-
-    var skipOption = document.createElement("option");
-    skipOption.value = "";
-    skipOption.textContent = "Add";
-    select.appendChild(skipOption);
-
-    INTENSITY_LEVELS.forEach(function (level) {
-      var opt = document.createElement("option");
-      opt.value = level.value;
-      opt.textContent = level.label;
-      select.appendChild(opt);
-    });
-
-    select.value = c.intensity || "";
-
-    select.addEventListener("change", function () {
-      setIntensity(c.id, select.value);
-      select.dataset.intensity = select.value;
-    });
-
-    return select;
-  }
-
-  // ---------- helpers ----------
-
-  function average(nums) {
-    if (!nums.length) return 0;
-    var sum = nums.reduce(function (a, b) { return a + b; }, 0);
-    return Math.round(sum / nums.length);
-  }
-
-  function formatDuration(totalSeconds) {
-    totalSeconds = Math.max(0, Math.round(totalSeconds));
-    var h = Math.floor(totalSeconds / 3600);
-    var m = Math.floor((totalSeconds % 3600) / 60);
-    var s = totalSeconds % 60;
-    if (h > 0) {
-      return h + ":" + pad(m) + ":" + pad(s);
-    }
-    return m + ":" + pad(s);
-  }
-
-  function formatTime(epochMs) {
-    var d = new Date(epochMs);
-    return pad(d.getHours()) + ":" + pad(d.getMinutes());
-  }
-
-  function pad(n) {
-    return n < 10 ? "0" + n : String(n);
   }
 
   document.addEventListener("DOMContentLoaded", init);

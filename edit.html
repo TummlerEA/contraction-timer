@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <title>Edit Contraction</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="edit-header">
+      <button id="backBtn" class="round-btn" title="Back" aria-label="Back">‹</button>
+      <h1>Edit Contraction</h1>
+      <button id="saveBtn" class="round-btn round-btn-accent" title="Save" aria-label="Save">✓</button>
+    </header>
+
+    <section class="edit-card" aria-label="Contraction details">
+      <div class="edit-date" id="editDate">–</div>
+
+      <label class="field-row">
+        <span class="field-label">Started at</span>
+        <span class="field-value-wrap">
+          <input type="time" id="startInput" class="time-input" />
+          <span class="row-chevron" aria-hidden="true">›</span>
+        </span>
+      </label>
+
+      <label class="field-row">
+        <span class="field-label">Ended at</span>
+        <span class="field-value-wrap">
+          <input type="time" id="endInput" class="time-input" />
+          <span class="row-chevron" aria-hidden="true">›</span>
+        </span>
+      </label>
+
+      <div class="field-row field-row-static">
+        <span class="field-label">Duration</span>
+        <span class="field-value" id="durationValue">0:00</span>
+      </div>
+
+      <div class="intensity-section">
+        <div class="intensity-title">Intensity</div>
+        <div class="intensity-value" id="intensityValue">NOT SET</div>
+
+        <div class="slider-row">
+          <span class="slider-edge">min</span>
+          <input type="range" id="intensitySlider" min="0" max="3" step="1" value="0" />
+          <span class="slider-edge">max</span>
+        </div>
+
+        <button id="clearIntensityBtn" class="text-link">Clear intensity</button>
+      </div>
+    </section>
+
+    <button id="deleteBtn" class="delete-full-btn">Delete Contraction</button>
+
+    <p id="notFound" class="empty-state" style="display:none;">
+      That contraction record could not be found.
+      <a href="index.html">Back to timer</a>
+    </p>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/intensity.js"></script>
+  <script src="js/edit.js"></script>
+</body>
+</html>

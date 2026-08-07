@@ -14,16 +14,21 @@ external account: all data is stored locally in your browser
   to stop. The live elapsed time is shown while a contraction is in progress.
 - **History table** — every recorded contraction shows its start time,
   interval since the previous contraction started, duration, and an
-  optional intensity.
-- **Manual intensity** — tag any contraction Mild / Moderate / Strong from a
-  dropdown in the history table, or leave it as "Add" to skip it. Fully
-  optional and editable any time.
+  optional intensity. Tap any row to open its edit page.
+- **Edit page** — adjust a contraction's start time, end time, or intensity
+  by hand, or delete it outright. Editing a start/end time automatically
+  re-sorts the history and recalculates intervals for the affected records,
+  so "interval since previous contraction" stays correct even after a
+  correction.
+- **Manual intensity** — tag any contraction Mild / Moderate / Strong /
+  Severe from a slider on the edit page, or leave it unset ("Add") to skip
+  it. Fully optional and editable any time, with a one-tap "Clear intensity"
+  to unset it again.
 - **1h / 3h / 6h filters** — switch the history view between the last one,
   three, or six hours.
 - **Past-hour stats** — average duration, number of contractions, and average
   interval, all computed over the trailing 60 minutes.
-- **Delete entries / clear history** — fix a mis-timed entry, or wipe
-  everything and start fresh.
+- **Clear history** — wipe everything and start fresh.
 - **Survives refresh** — an in-progress contraction and all past entries are
   restored automatically if you reload or close/reopen the page.
 
@@ -53,9 +58,13 @@ using a different browser/device) will not carry history over.
 ## Project structure
 
 ```
-index.html        Page markup
+index.html        Timer + history page
+edit.html          Edit-a-record page (time, duration, intensity, delete)
 css/style.css      Styling (dark theme)
-js/app.js          Timer logic, storage, and rendering
+js/app.js          Timer logic, storage, and rendering for index.html
+js/edit.js         Editing logic for edit.html
+js/intensity.js    Shared intensity scale (Mild/Moderate/Strong/Severe)
+js/utils.js        Shared formatting helpers
 .github/workflows/deploy.yml   GitHub Pages deployment
 ```
 
