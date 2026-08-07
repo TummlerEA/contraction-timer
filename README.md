@@ -29,6 +29,11 @@ external account: all data is stored locally in your browser
 - **Past-hour stats** — average duration, number of contractions, and average
   interval, all computed over the trailing 60 minutes.
 - **Clear history** — wipe everything and start fresh.
+- **Labor notes** — a free-form multiline text box under the history table
+  for logging events that aren't contractions (admission, medication,
+  checks, etc.). An "Insert time" button stamps the current time onto a new
+  line so entries stay easy to scan. Saved automatically as you type, in
+  `localStorage`, on the same device.
 - **Survives refresh** — an in-progress contraction and all past entries are
   restored automatically if you reload or close/reopen the page.
 
@@ -63,6 +68,7 @@ edit.html          Edit-a-record page (time, duration, intensity, delete)
 css/style.css      Styling (dark theme)
 js/app.js          Timer logic, storage, and rendering for index.html
 js/edit.js         Editing logic for edit.html
+js/notes.js        Labor notes text box logic
 js/intensity.js    Shared intensity scale (Mild/Moderate/Strong/Severe)
 js/utils.js        Shared formatting helpers
 .github/workflows/deploy.yml   GitHub Pages deployment
