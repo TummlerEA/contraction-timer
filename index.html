@@ -69,6 +69,20 @@
       <p class="history-hint">Tap a record to edit or delete it.</p>
     </section>
 
+    <section class="notes-card" aria-label="Labor notes">
+      <div class="notes-header">
+        <h2>Labor Notes</h2>
+        <button id="insertTimeBtn" class="icon-btn" type="button">Insert time</button>
+      </div>
+      <textarea
+        id="notesArea"
+        class="notes-area"
+        rows="7"
+        placeholder="e.g.&#10;09:15 - Admitted to hospital&#10;09:40 - Given painkillers&#10;10:05 - Cervix check: 4cm dilated"
+      ></textarea>
+      <p class="notes-status" id="notesStatus">&nbsp;</p>
+    </section>
+
     <footer class="app-footer">
       <p>Data is stored only on this device (browser local storage).</p>
     </footer>
@@ -77,5 +91,6 @@
   <script src="js/utils.js"></script>
   <script src="js/intensity.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/notes.js"></script>
 </body>
 </html>
