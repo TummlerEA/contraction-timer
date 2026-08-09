@@ -1,3 +1,4 @@
+// Contraction Timer — MIT License, see LICENSE file.
 // Shared intensity scale used by both index.html and edit.html.
 // Intensity is always optional — null means "not set" (skipped).
 (function (global) {
