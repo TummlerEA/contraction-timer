@@ -1,3 +1,4 @@
+// Contraction Timer — MIT License, see LICENSE file.
 // Shared helpers used by both index.html and edit.html.
 (function (global) {
   "use strict";

@@ -1,3 +1,4 @@
+// Contraction Timer — MIT License, see LICENSE file.
 (function () {
   "use strict";
 
