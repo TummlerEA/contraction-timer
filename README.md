@@ -8,6 +8,30 @@ It's a static, client-side web app. There's no backend server and no
 external account: all data is stored locally in your browser
 (`localStorage`), and all the app's code lives in this repository.
 
+## Quick start (new users)
+
+1. Open the app (locally or at your GitHub Pages URL — see below).
+2. Tap **Start Contraction** when a contraction begins, tap it again when it
+   ends. Repeat for each contraction.
+3. Watch the **Past hour** card and the **History** table to track duration,
+   interval, and count over time.
+4. Tap any history row to correct a time, set an intensity, or delete it.
+5. Log everything else (admission, medication, checks) in the **Labor
+   Notes** box.
+
+The app itself also has a **"How to use this app & the 5-1-1 rule"**
+section right at the top — tap it to expand.
+
+### The 5-1-1 rule
+
+A common rule of thumb for when to head to the hospital or call your
+provider: contractions about **5 minutes apart**, each lasting about
+**1 minute**, for at least **1 hour**.
+
+This is general guidance only, not medical advice — always follow your own
+provider's specific instructions, and don't wait on any rule of thumb if
+something feels wrong.
+
 ## Features
 
 - **Start / Stop button** — tap once to start timing a contraction, tap again
@@ -72,6 +96,7 @@ js/notes.js        Labor notes text box logic
 js/intensity.js    Shared intensity scale (Mild/Moderate/Strong/Severe)
 js/utils.js        Shared formatting helpers
 .github/workflows/deploy.yml   GitHub Pages deployment
+LICENSE            MIT license
 ```
 
 ## Disclaimer
@@ -79,3 +104,7 @@ js/utils.js        Shared formatting helpers
 This tool is for personal tracking convenience only and is not a medical
 device. Always follow guidance from your healthcare provider, especially
 regarding when to seek care.
+
+## License
+
+MIT — see [LICENSE](LICENSE). Free to use, modify, and share.
