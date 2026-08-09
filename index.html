@@ -42,6 +42,18 @@
           button stamps the current time for you.
         </p>
 
+        <h3>Backup &amp; moving to another phone</h3>
+        <p>
+          Your records live only in this browser, so export a copy if you
+          want a backup or want them on another device. Use
+          <strong>JSON</strong> to back up and restore, <strong>CSV</strong>
+          for a spreadsheet, or <strong>Markdown</strong> for something easy
+          to read or hand to a provider. To move data across, export JSON on
+          the old phone and restore that file on the new one —
+          <strong>Merge</strong> keeps both sets of records,
+          <strong>Replace</strong> overwrites what's on the device.
+        </p>
+
         <h3>The 5-1-1 rule</h3>
         <p>
           A common rule of thumb for when to head to the hospital or call
@@ -127,6 +139,46 @@
       <p class="notes-status" id="notesStatus">&nbsp;</p>
     </section>
 
+    <section class="backup-card" aria-label="Backup and export">
+      <h2>Backup &amp; Export</h2>
+
+      <p class="backup-lead">Save a copy of your records, or move them to another phone.</p>
+
+      <div class="backup-buttons">
+        <button id="exportJsonBtn" class="backup-btn" type="button">
+          <span class="backup-btn-label">JSON</span>
+          <span class="backup-btn-hint">for backup / restore</span>
+        </button>
+        <button id="exportCsvBtn" class="backup-btn" type="button">
+          <span class="backup-btn-label">CSV</span>
+          <span class="backup-btn-hint">for spreadsheets</span>
+        </button>
+        <button id="exportMdBtn" class="backup-btn" type="button">
+          <span class="backup-btn-label">Markdown</span>
+          <span class="backup-btn-hint">easy to read / share</span>
+        </button>
+      </div>
+
+      <h3 class="backup-subhead">Restore from a file</h3>
+      <p class="backup-lead">
+        Pick a <strong>.json</strong> backup exported from this app. CSV and Markdown are
+        for reading and sharing — only JSON can be restored.
+      </p>
+
+      <label class="field-row field-row-static backup-mode-row">
+        <span class="field-label">If data already exists</span>
+        <select id="restoreMode" class="backup-select">
+          <option value="merge">Merge (keep both)</option>
+          <option value="replace">Replace everything</option>
+        </select>
+      </label>
+
+      <input id="restoreInput" class="restore-input" type="file" accept="application/json,.json" />
+      <label for="restoreInput" class="restore-label">Choose backup file…</label>
+
+      <p class="backup-status" id="backupStatus">&nbsp;</p>
+    </section>
+
     <footer class="app-footer">
       <p>Data is stored only on this device (browser local storage).</p>
       <p>
@@ -139,5 +191,6 @@
   <script src="js/intensity.js"></script>
   <script src="js/app.js"></script>
   <script src="js/notes.js"></script>
+  <script src="js/backup.js"></script>
 </body>
 </html>
