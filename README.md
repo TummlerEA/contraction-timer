@@ -58,6 +58,15 @@ something feels wrong.
   checks, etc.). An "Insert time" button stamps the current time onto a new
   line so entries stay easy to scan. Saved automatically as you type, in
   `localStorage`, on the same device.
+- **Export** — download your contractions and notes as **JSON** (full
+  fidelity, used for restore), **CSV** (contractions only, for spreadsheets),
+  or **Markdown** (a readable table plus notes, handy to share with a
+  provider).
+- **Restore from a file** — load a JSON export back in to recover a backup or
+  move your data to another phone. Choose **Merge** to combine both devices'
+  records (duplicates are detected and skipped) or **Replace** to overwrite
+  what's on the device. Malformed or corrupt entries in a file are dropped
+  rather than imported.
 - **Survives refresh** — an in-progress contraction and all past entries are
   restored automatically if you reload or close/reopen the page.
 
@@ -84,6 +93,11 @@ All contraction data stays in your browser's local storage on the device you
 use — nothing is sent to a server. Clearing your browser's site data (or
 using a different browser/device) will not carry history over.
 
+Because of that, **Backup & Export** is the way to keep a copy or move to
+another phone: export a JSON file, transfer it however you like, and restore
+it on the other device. The exported file is plain text on your device —
+handle it like any other personal health record.
+
 ## Project structure
 
 ```
@@ -93,6 +107,7 @@ css/style.css      Styling (dark theme)
 js/app.js          Timer logic, storage, and rendering for index.html
 js/edit.js         Editing logic for edit.html
 js/notes.js        Labor notes text box logic
+js/backup.js       Export (JSON/CSV/Markdown) and restore-from-file
 js/intensity.js    Shared intensity scale (Mild/Moderate/Strong/Severe)
 js/utils.js        Shared formatting helpers
 .github/workflows/deploy.yml   GitHub Pages deployment

@@ -379,6 +379,137 @@ tbody tr:last-child td {
   color: var(--accent);
 }
 
+/* ---------- Backup & export ---------- */
+
+.backup-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 18px 14px;
+  margin-top: 18px;
+}
+
+.backup-card h2 {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+}
+
+.backup-lead {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0 0 12px;
+}
+
+.backup-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.backup-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: var(--card-bg-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 6px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.backup-btn:hover {
+  border-color: var(--accent);
+}
+
+.backup-btn-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.backup-btn-hint {
+  font-size: 0.66rem;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 1.25;
+}
+
+.backup-subhead {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-dim);
+  margin: 22px 0 6px;
+}
+
+.backup-mode-row {
+  padding: 10px 0;
+}
+
+.backup-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--card-bg-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.restore-label {
+  display: block;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.restore-label:hover {
+  border-color: var(--accent);
+  background: rgba(95, 184, 171, 0.06);
+}
+
+/* Visually hidden, but still reachable via its label and by keyboard. */
+.restore-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.restore-input:focus-visible + .restore-label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.backup-status {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  margin: 10px 2px 0;
+  min-height: 1em;
+}
+
+.backup-status.is-error {
+  color: var(--danger);
+}
+
 .app-footer {
   text-align: center;
   color: var(--text-dim);
