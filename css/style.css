@@ -386,6 +386,19 @@ tbody tr:last-child td {
   margin-top: 24px;
 }
 
+.app-footer p + p {
+  margin-top: 6px;
+}
+
+.app-footer a {
+  color: var(--text-dim);
+  text-decoration: underline;
+}
+
+.app-footer a:hover {
+  color: var(--accent);
+}
+
 /* ---------- Labor notes ---------- */
 
 .notes-card {
