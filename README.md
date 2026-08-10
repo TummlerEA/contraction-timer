@@ -58,10 +58,11 @@ something feels wrong.
   checks, etc.). An "Insert time" button stamps the current time onto a new
   line so entries stay easy to scan. Saved automatically as you type, in
   `localStorage`, on the same device.
-- **Export** — download your contractions and notes as **JSON** (full
-  fidelity, used for restore), **CSV** (contractions only, for spreadsheets),
-  or **Markdown** (a readable table plus notes, handy to share with a
-  provider).
+- **Export** — download **every** contraction plus your labor notes as
+  **JSON** (full fidelity, the format restore reads), **CSV** (for
+  spreadsheets), or **Markdown** (handy to share with a provider). Exports
+  always cover your whole history — the 1h/3h/6h tabs only filter the
+  on-screen table, not the file.
 - **Restore from a file** — load a JSON export back in to recover a backup or
   move your data to another phone. Choose **Merge** to combine both devices'
   records (duplicates are detected and skipped) or **Replace** to overwrite

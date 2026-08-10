@@ -79,7 +79,7 @@
     if (format === "json") {
       built = { text: buildJson(list, notes), mime: "application/json", ext: "json" };
     } else if (format === "csv") {
-      built = { text: buildCsv(list), mime: "text/csv", ext: "csv" };
+      built = { text: buildCsv(list, notes), mime: "text/csv", ext: "csv" };
     } else {
       built = { text: buildMarkdown(list, notes), mime: "text/markdown", ext: "md" };
     }
@@ -99,9 +99,7 @@
     }, null, 2);
   }
 
-  function buildCsv(list) {
-    // Contractions only — free-form notes don't fit a table; use JSON or
-    // Markdown to carry those across.
+  function buildCsv(list, notes) {
     var header = [
       "Start (ISO)", "Start (local)", "End (ISO)",
       "Duration (s)", "Duration (m:ss)",
@@ -123,6 +121,17 @@
         c.intensity ? Intensity.labelFor(c.intensity) || "" : ""
       ].map(csvCell).join(","));
     });
+
+    // Notes follow the table as their own section, one row per line, so a
+    // spreadsheet shows them as ordinary rows in the first column instead of
+    // cramming multi-line text into a single cell.
+    if (notes.trim()) {
+      rows.push("");
+      rows.push(csvCell("Labor notes"));
+      notes.replace(/\r\n/g, "\n").split("\n").forEach(function (line) {
+        rows.push(csvCell(line));
+      });
+    }
 
     return rows.join("\r\n") + "\r\n";
   }
